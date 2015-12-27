@@ -74,6 +74,34 @@ TimServer::create()
 ```
 
 
+Also, since 1.1.0, we can use the OpaqueTimServer which accepts a default message that is returned
+every time an uncaught exception is thrown.
+Using the OpaqueTimServer, you can log the original exception message while having a standard user message
+displayed to the front user.
+
+
+```php
+<?php
+
+
+require_once __DIR__ . "/../../../../../init.php";
+
+
+use Tim\TimServer\OpaqueTimServer;
+use Tim\TimServer\TimServerInterface;
+
+
+OpaqueTimServer::create()
+    ->setOpaqueMessage("An internal error has occurred, please retry later")
+    ->start(function (TimServerInterface $server) {
+            // do your things...
+})->output();
+```
+
+
+
+
+
 
 ### tim functions (js)
 
@@ -156,6 +184,11 @@ timPost("/service/event.php", {
 History Log
 ------------------
     
+- 1.1.0 -- 2015-12-27
+
+    - add OpaqueTimServer
+    - add TimServer->setOnExceptionCaughtCb method
+
 - 1.0.0 -- 2015-12-11
 
     - initial commit

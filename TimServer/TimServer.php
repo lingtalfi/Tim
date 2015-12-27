@@ -15,18 +15,21 @@ class TimServer implements TimServerInterface
 
     private $type;
     private $message;
+    private $onExceptionCaughtCb;
 
     public function __construct()
     {
         $this->message = 'server not started yet';
         $this->type = 'e';
+        $this->onExceptionCaughtCb = function (\Exception $e, TimServerInterface $server) {
+            $server->error($e->getMessage());
+        };
     }
 
     public static function create()
     {
         return new static();
     }
-
 
 
     //------------------------------------------------------------------------------/
@@ -55,6 +58,13 @@ class TimServer implements TimServerInterface
         return $this;
     }
 
+    public function setOnExceptionCaughtCb(callable $onExceptionCaughtCb)
+    {
+        $this->onExceptionCaughtCb = $onExceptionCaughtCb;
+        return $this;
+    }
+
+
     //------------------------------------------------------------------------------/
     // 
     //------------------------------------------------------------------------------/
@@ -64,11 +74,10 @@ class TimServer implements TimServerInterface
             try {
                 call_user_func($callable, $this);
             } catch (\Exception $e) {
-                $this->error($e->getMessage());
+                call_user_func($this->onExceptionCaughtCb, $e, $this);
                 $this->log($e);
             }
-        }
-        else {
+        } else {
             throw new \InvalidArgumentException("callable must be a callable");
         }
         return $this;
