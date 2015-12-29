@@ -15,7 +15,7 @@ function _timErrorToString(error, sep) {
         sep = "\n";
     }
     // assuming is either a string, or an array
-    console.log(Object.prototype.toString.call(error));
+    // console.log(Object.prototype.toString.call(error));
     if (-1 !== $.inArray(Object.prototype.toString.call(error), ['[object Array]', '[object Object]'])) {
         var c = 0;
         for (var i in error) {
