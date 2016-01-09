@@ -74,34 +74,6 @@ TimServer::create()
 ```
 
 
-Also, since 1.1.0, we can use the OpaqueTimServer which accepts a default message that is returned
-every time an uncaught exception is thrown.
-Using the OpaqueTimServer, you can log the original exception message while having a standard user message
-displayed to the front user.
-
-
-```php
-<?php
-
-
-require_once __DIR__ . "/../../../../../init.php";
-
-
-use Tim\TimServer\OpaqueTimServer;
-use Tim\TimServer\TimServerInterface;
-
-
-OpaqueTimServer::create()
-    ->setOpaqueMessage("An internal error has occurred, please retry later")
-    ->start(function (TimServerInterface $server) {
-            // do your things...
-})->output();
-```
-
-
-
-
-
 
 ### tim functions (js)
 
@@ -175,6 +147,14 @@ timPost("/service/event.php", {
 ```
 
 
+Note: this also works with the jqXHR's fail() method.
+
+Do not confound a tim onFailure callback with the jqXHR's fail() method.
+
+jqXHR's fail() method is concerned with network problems (wrong url),
+whereas tim onFailure is concerned with application logic problems (user is not granted to perform some action...).
+In the case of tim's onFailure, the server has been hit, while if the process goes down to jqXHR's fail() method,
+it probably hasn't.
 
  
  
@@ -184,11 +164,14 @@ timPost("/service/event.php", {
 History Log
 ------------------
     
+- 1.2.0 -- 2016-01-09
+
+    - add timProcessResponse in tim-functions.js
+    
 - 1.1.0 -- 2015-12-27
 
-    - add OpaqueTimServer
-    - add TimServer->setOnExceptionCaughtCb method
-
+    - add OpaqueTimServe
+    
 - 1.0.0 -- 2015-12-11
 
     - initial commit

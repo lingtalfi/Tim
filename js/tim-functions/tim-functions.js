@@ -4,9 +4,9 @@
 /**
  * 2015-12-11
  * LingTalfi
- * 
+ *
  * Dependencies: jquery
- * 
+ *
  */
 
 function _timErrorToString(error, sep) {
@@ -15,7 +15,7 @@ function _timErrorToString(error, sep) {
         sep = "\n";
     }
     // assuming is either a string, or an array
-    // console.log(Object.prototype.toString.call(error));
+    console.log(Object.prototype.toString.call(error));
     if (-1 !== $.inArray(Object.prototype.toString.call(error), ['[object Array]', '[object Object]'])) {
         var c = 0;
         for (var i in error) {
@@ -44,29 +44,33 @@ function timLog(error) {
 
 function timPost(url, data, onSuccess, onFailure) {
     return $.post(url, data, function (thedata) {
-        if (thedata.t) {
-            if ('m' in thedata) {
-                if ('s' === thedata.t) {
-                    onSuccess(thedata.m);
-                }
-                else if ('e' === thedata.t) {
-                    if (!!onFailure) {
-                        onFailure(thedata.m);
-                    }
-                    else {
-                        timError(thedata.m);
-                    }
+        timProcessResponse(thedata, onSuccess, onFailure);
+    }, 'json');
+}
+
+function timProcessResponse(thedata, onSuccess, onFailure) {
+    if (thedata.t) {
+        if ('m' in thedata) {
+            if ('s' === thedata.t) {
+                onSuccess(thedata.m);
+            }
+            else if ('e' === thedata.t) {
+                if (!!onFailure) {
+                    onFailure(thedata.m);
                 }
                 else {
-                    timLog("protocol violation, t must be either s or e");
+                    timError(thedata.m);
                 }
             }
             else {
-                timLog("protocol violation, m key not found");
+                timLog("protocol violation, t must be either s or e");
             }
         }
         else {
-            timLog("protocol violation, t key not found");
+            timLog("protocol violation, m key not found");
         }
-    }, 'json');
+    }
+    else {
+        timLog("protocol violation, t key not found");
+    }
 }

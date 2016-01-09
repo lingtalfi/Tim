@@ -19,7 +19,7 @@ class TimServer implements TimServerInterface
 
     public function __construct()
     {
-        $this->message = 'tim server not started yet';
+        $this->message = 'server not started yet';
         $this->type = 'e';
         $this->onExceptionCaughtCb = function (\Exception $e, TimServerInterface $server) {
             $server->error($e->getMessage());
