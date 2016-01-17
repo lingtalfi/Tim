@@ -164,6 +164,10 @@ it probably hasn't.
 History Log
 ------------------
     
+- 1.3.0 -- 2016-01-17
+
+    - add TransparentException mechanism
+    
 - 1.2.0 -- 2016-01-09
 
     - add timProcessResponse in tim-functions.js

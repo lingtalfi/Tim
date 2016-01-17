@@ -3,6 +3,8 @@
 
 namespace Tim\TimServer;
 
+use Tim\Exception\TransparentException;
+
 
 /**
  * OpaqueTimServer
@@ -16,7 +18,12 @@ class OpaqueTimServer extends TimServer
     public function setOpaqueMessage($msg)
     {
         $this->setOnExceptionCaughtCb(function (\Exception $e, TimServerInterface $server) use ($msg) {
-            $server->error($msg);
+            if ($e instanceof TransparentException) {
+                $server->error($e->getMessage());
+            }
+            else {
+                $server->error($msg);
+            }
         });
         return $this;
     }
