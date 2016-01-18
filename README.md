@@ -47,7 +47,7 @@ the classes.
 ```php  
 <?php
 
-require_once "bigbang.php";
+require_once "bigbang.php"; // start the local universe
 
 
 use Tim\TimServer\TimServer;
@@ -72,6 +72,46 @@ TimServer::create()
     ->output();
 
 ```
+
+#### Service provider code example
+
+Since 1.4.0, this is the recommended code example for service providers (using an OpaqueTimServer in this specific case):
+
+```php
+<?php
+
+require_once "bigbang.php"; // start the local universe
+
+
+use Tim\TimServer\TimServer;
+use Tim\TimServer\TimServerInterface;
+
+
+OpaqueTimServer::create()
+    ->setServiceName ( 'myAwesomeTimService' )
+    ->setOpaqueMessage( TimServerGlobal::getOpaqueMessage ( 'myAwesomeTimService' ) )
+    ->start(function (TimServerInterface $server) {
+        if (isset($_POST['id'])) {
+            // ...
+            if ('valid') {
+                $server->success("Congrats!");
+            }
+            else {
+                throw new \Exception("division by zero!");
+            }
+        }
+        else {
+            $server->error("Oops");
+        }
+    })
+    ->output();
+
+```
+
+The main difference with the previous example is that now the service has a name, 
+and this allows the user (developer) to configure the service from her application. 
+See [1.4.0 notes](https://github.com/lingtalfi/Tim/blob/master/doc/notes.1.4.0.md) for the rationale.
+
 
 
 
@@ -164,6 +204,10 @@ it probably hasn't.
 History Log
 ------------------
     
+- 1.4.0 -- 2016-01-18
+
+    - add [external configuration layer for service provider](https://github.com/lingtalfi/Tim/blob/master/doc/notes.1.4.0.md)
+        
 - 1.3.0 -- 2016-01-17
 
     - add TransparentException mechanism
@@ -174,7 +218,7 @@ History Log
     
 - 1.1.0 -- 2015-12-27
 
-    - add OpaqueTimServe
+    - add OpaqueTimServer
     
 - 1.0.0 -- 2015-12-11
 

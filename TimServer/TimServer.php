@@ -16,6 +16,7 @@ class TimServer implements TimServerInterface
     private $type;
     private $message;
     private $onExceptionCaughtCb;
+    private $serviceName; // for service providers only
 
     public function __construct()
     {
@@ -64,6 +65,15 @@ class TimServer implements TimServerInterface
         return $this;
     }
 
+    public function setServiceName($serviceName)
+    {
+        $this->serviceName = $serviceName;
+        return $this;
+    }
+    
+    
+    
+
 
     //------------------------------------------------------------------------------/
     // 
@@ -77,7 +87,8 @@ class TimServer implements TimServerInterface
                 call_user_func($this->onExceptionCaughtCb, $e, $this);
                 $this->log($e);
             }
-        } else {
+        }
+        else {
             throw new \InvalidArgumentException("callable must be a callable");
         }
         return $this;
@@ -86,7 +97,9 @@ class TimServer implements TimServerInterface
 
     protected function log(\Exception $e)
     {
-
+        if (false !== ($cb = TimServerGlobal::getLogCb($this->serviceName))) {
+            call_user_func($cb, $e);
+        }
     }
 
 
