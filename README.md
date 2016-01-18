@@ -75,7 +75,7 @@ TimServer::create()
 
 #### Service provider code example
 
-Since 1.4.0, this is the recommended code example for service providers (using an OpaqueTimServer in this specific case):
+Since 1.4.0, this is a possible code example for service providers.
 
 ```php
 <?php
@@ -112,6 +112,7 @@ OpaqueTimServer::create()
 The main difference with the previous example is that now the service has a name, 
 and this allows the user (developer) to configure the service from her application. 
 See [1.4.0 notes](https://github.com/lingtalfi/Tim/blob/master/doc/notes.1.4.0.md) for the rationale.
+
 
 
 
