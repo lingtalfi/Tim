@@ -100,7 +100,7 @@ class TimServer implements TimServerInterface
     protected function log(\Exception $e)
     {
         if (false !== ($cb = TimServerGlobal::getLogCb($this->serviceName))) {
-            call_user_func($cb, $e);
+            call_user_func($cb, $e, $this->serviceName);
         }
     }
 

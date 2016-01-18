@@ -34,6 +34,10 @@ class TimServerGlobal
     private static $opaqueMsgs = [];
 
 
+    /**
+     * @param callable $cb          void function ( \Exception $e, $serviceName )
+     * @param null $serviceName
+     */
     public static function setLogCb(callable $cb, $serviceName = null)
     {
         self::$logCbs[$serviceName] = $cb;

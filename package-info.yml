@@ -1,5 +1,5 @@
 dependencies:
-    - jslib::jquery:2.1.4
+    - jslib::jquery:2.1.4 (only if you use the tim function js)
     
     
     

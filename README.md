@@ -205,6 +205,10 @@ it probably hasn't.
 History Log
 ------------------
     
+- 1.6.0 -- 2016-01-18
+
+    - TimServer: add serviceName parameter to the log callback
+    
 - 1.5.0 -- 2016-01-18
 
     - TimServer: code re-organisation
