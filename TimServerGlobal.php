@@ -10,9 +10,19 @@ namespace Tim;
  * service name
  * -----------------
  * The name of the targeted service, or the asterisk (*) to target all services globally.
+ * Or you can use the asterisk after a namespace followed by a dot, like this:
  * 
+ *          serviceProvider.*
  * 
+ * Matches every services with namespace "serviceProvider", like:
+ *      
+ * - serviceProvider
+ * - serviceProvider.service1
+ * - serviceProvider.another_service
  * 
+ * But not:
+ * 
+ * - serviceProviderOther
  * 
  * 
  */
@@ -31,11 +41,8 @@ class TimServerGlobal
 
     public static function getLogCb($serviceName)
     {
-        if (array_key_exists($serviceName, self::$logCbs)) {
-            return self::$logCbs[$serviceName];
-        }
-        elseif (array_key_exists('*', self::$logCbs)) {
-            return self::$logCbs['*'];
+        if (false !== ($ret = self::getItem($serviceName, self::$logCbs))) {
+            return $ret;
         }
         return false;
     }
@@ -47,13 +54,34 @@ class TimServerGlobal
 
     public static function getOpaqueMessage($serviceName)
     {
-        if (array_key_exists($serviceName, self::$opaqueMsgs)) {
-            return self::$opaqueMsgs[$serviceName];
-        }
-        elseif (array_key_exists('*', self::$logCbs)) {
-            return self::$opaqueMsgs['*'];
+        if (false !== ($ret = self::getItem($serviceName, self::$opaqueMsgs))) {
+            return $ret;
         }
         return 'An error occurred! Please retry later';
+    }
+
+
+    private static function getItem($serviceName, array $items)
+    {
+        if (array_key_exists($serviceName, $items)) {
+            return $items[$serviceName];
+        }
+        else {
+            // handling namespaces like myService.upload
+            if (false !== $pos = strpos($serviceName, '.')) {
+                $namespace = substr($serviceName, 0, $pos) . '.*';
+                if (array_key_exists($namespace, $items)) {
+                    return $items[$namespace];
+                }
+            }
+            elseif (array_key_exists($serviceName . '.*', $items)) {
+                return $items[$serviceName . '.*'];
+            }
+            if (array_key_exists('*', $items)) {
+                return $items['*'];
+            }
+        }
+        return false;
     }
 
 }

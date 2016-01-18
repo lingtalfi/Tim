@@ -206,6 +206,11 @@ it probably hasn't.
 History Log
 ------------------
     
+- 1.5.0 -- 2016-01-18
+
+    - TimServer: code re-organisation
+    - TimServerGlobal: handles namespaces
+        
 - 1.4.0 -- 2016-01-18
 
     - add [external configuration layer for service provider](https://github.com/lingtalfi/Tim/blob/master/doc/notes.1.4.0.md)

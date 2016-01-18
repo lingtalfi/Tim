@@ -2,6 +2,7 @@
 
 
 namespace Tim\TimServer;
+
 use Tim\TimServerGlobal;
 
 
@@ -17,15 +18,12 @@ class TimServer implements TimServerInterface
     private $type;
     private $message;
     private $onExceptionCaughtCb;
-    private $serviceName; // for service providers only
+    protected $serviceName; // for service providers only
 
     public function __construct()
     {
         $this->message = 'server not started yet';
         $this->type = 'e';
-        $this->onExceptionCaughtCb = function (\Exception $e, TimServerInterface $server) {
-            $server->error($e->getMessage());
-        };
     }
 
     public static function create()
@@ -71,9 +69,9 @@ class TimServer implements TimServerInterface
         $this->serviceName = $serviceName;
         return $this;
     }
-    
-    
-    
+
+
+
 
 
     //------------------------------------------------------------------------------/
@@ -85,8 +83,11 @@ class TimServer implements TimServerInterface
             try {
                 call_user_func($callable, $this);
             } catch (\Exception $e) {
-                call_user_func($this->onExceptionCaughtCb, $e, $this);
+                $this->onExceptionCaught($e);
                 $this->log($e);
+                if (null !== $this->onExceptionCaughtCb) {
+                    call_user_func($this->onExceptionCaughtCb, $e, $this);
+                }
             }
         }
         else {
@@ -103,5 +104,8 @@ class TimServer implements TimServerInterface
         }
     }
 
-
+    protected function onExceptionCaught(\Exception $e)
+    {
+        $this->error($e->getMessage());
+    }
 }
