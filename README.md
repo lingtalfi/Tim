@@ -90,7 +90,6 @@ use Tim\TimServerGlobal;
 
 OpaqueTimServer::create()
     ->setServiceName ( 'myAwesomeTimService' )
-    ->setOpaqueMessage( TimServerGlobal::getOpaqueMessage ( 'myAwesomeTimService' ) )
     ->start(function (TimServerInterface $server) {
         if (isset($_POST['id'])) {
             // ...
