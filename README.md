@@ -85,6 +85,7 @@ require_once "bigbang.php"; // start the local universe
 
 use Tim\TimServer\TimServer;
 use Tim\TimServer\TimServerInterface;
+use Tim\TimServerGlobal;
 
 
 OpaqueTimServer::create()

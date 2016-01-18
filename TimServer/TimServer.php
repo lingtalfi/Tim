@@ -2,6 +2,7 @@
 
 
 namespace Tim\TimServer;
+use Tim\TimServerGlobal;
 
 
 /**

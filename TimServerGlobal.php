@@ -1,6 +1,6 @@
 <?php
 
-namespace Tim\TimServer;
+namespace Tim;
 
 /*
  * LingTalfi 2016-01-18
