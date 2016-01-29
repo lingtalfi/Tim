@@ -2,21 +2,6 @@
 // TIM FUNCTIONS
 //------------------------------------------------------------------------------/
 /**
- * 
- * Disclaimer
- * ---------------
- * This version is not maintained anymore.
- * Please use the www/libs/tim/js/tim.js file instead.
- * (that's because it's easier to copy paste the www folder into your app than manually
- * copying THIS file into your application).
- * 
- * Note: the new version uses Wass0 convention.
- * https://github.com/lingtalfi/ConventionGuy/blob/master/convention/wass0/convention.wass0.eng.md
- * 
- * 
- * 
- * 
- * 
  * 2015-12-11
  * LingTalfi
  *
