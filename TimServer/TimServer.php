@@ -22,7 +22,7 @@ class TimServer implements TimServerInterface
 
     public function __construct()
     {
-        $this->message = 'server not started yet';
+        $this->message = 'server not configured yet';
         $this->type = 'e';
     }
 
