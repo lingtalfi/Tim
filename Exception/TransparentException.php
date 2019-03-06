@@ -1,6 +1,6 @@
 <?php
 
-namespace Tim\Exception;
+namespace Ling\Tim\Exception;
 
 /*
  * LingTalfi 2016-01-17

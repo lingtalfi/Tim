@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Tim\TimServer;
+namespace Ling\Tim\TimServer;
 
-use Tim\Exception\TransparentException;
-use Tim\TimServerGlobal;
+use Ling\Tim\Exception\TransparentException;
+use Ling\Tim\TimServerGlobal;
 
 
 /**

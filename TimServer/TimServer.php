@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Tim\TimServer;
+namespace Ling\Tim\TimServer;
 
-use Tim\TimServerGlobal;
+use Ling\Tim\TimServerGlobal;
 
 
 /**

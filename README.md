@@ -16,7 +16,7 @@ Install
 ==========
 Using the [uni](https://github.com/lingtalfi/universe-naive-importer) command.
 ```bash
-uni import Tim
+uni import Ling/Tim
 ```
 
 
@@ -63,8 +63,8 @@ the classes.
 require_once "bigbang.php"; // start the local universe
 
 
-use Tim\TimServer\TimServer;
-use Tim\TimServer\TimServerInterface;
+use Ling\Tim\TimServer\TimServer;
+use Ling\Tim\TimServer\TimServerInterface;
 
 
 TimServer::create()
@@ -96,9 +96,9 @@ Since 1.4.0, this is a possible code example for service providers.
 require_once "bigbang.php"; // start the local universe
 
 
-use Tim\TimServer\TimServer;
-use Tim\TimServer\TimServerInterface;
-use Tim\TimServerGlobal;
+use Ling\Tim\TimServer\TimServer;
+use Ling\Tim\TimServer\TimServerInterface;
+use Ling\Tim\TimServerGlobal;
 
 
 OpaqueTimServer::create()

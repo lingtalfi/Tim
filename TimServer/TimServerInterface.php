@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tim\TimServer;
+namespace Ling\Tim\TimServer;
 
 
 /**
